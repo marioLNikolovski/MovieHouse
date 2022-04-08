@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Models;
-using MovieHouse.Infrastructure.Identity;
+
 using System.Reflection;
 
 namespace MovieHouse.Infrastructure.Data

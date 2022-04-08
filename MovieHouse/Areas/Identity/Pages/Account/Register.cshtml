@@ -1,67 +1,147 @@
 ﻿@page
 @model RegisterModel
+
 @{
     ViewData["Title"] = "Register";
+    Layout = null;
 }
-
 <h1>@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+    <!-- Basic need -->
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+
+    <!-- Mobile specific meta -->login-wrapper
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone-no">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="~/css/plugins.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<!--signup form -->
+
+<div class="login-wrapper" id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="post" action="login.php">
+
+            <div class="row">
+                <label for="email-2">
+                    email:
+                    <input type="text" name="email" id="email-2" placeholder="" required="required" />
+                </label>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="row">
+                <label for="firstName">
+                    First Name:
+                    <input type="text" name="firstName" id="firstName" placeholder="" required="required" />
+                </label>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="row">
+                <label for="lastName">
+                    Last Name:
+                    <input type="text" name="lastName" id="lastName" placeholder="" required="required" />
+                </label>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <div class="row">
+                <label for="age">
+                    age:
+                    <input type="text" name="age" id="age" placeholder="" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="country">
+                    country:
+                    <input type="text" name="country" id="country" placeholder="" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="city">
+                    city:
+                    <input type="text" name="city" id="city" placeholder="" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="password-2">
+                    Password:
+                    <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="repassword-2">
+                    re-type Password:
+                    <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <button type="submit">sign up</button>
+            </div>
         </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+@*<div class="row">
+    <div class="col-md-4">
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h2>Create a new account.</h2>
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-floating">
+    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+    <label asp-for="Input.Email"></label>
+    <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <div class="form-floating">
+    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+    <label asp-for="Input.Password"></label>
+    <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <div class="form-floating">
+    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+    <label asp-for="Input.ConfirmPassword"></label>
+    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+    </form>
+    </div>
+    </div>*@
+<!--end of signup form popup-->
+
+<div class="page-single-2">
+    <div class="container">
+        <div class="row">
+            <div class="middle-content">
+                <a href="/"><img class="md-logo" src="~/images/logo1.png" alt=""></a>
+                <a href="/" class="redbtn">go home</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.js"></script>
+<script src="~/js/plugins.js"></script>
+<script src="~/js/plugins2.js"></script>
+<script src="~/js/custom.js"></script>
+
+</body>
+</html>

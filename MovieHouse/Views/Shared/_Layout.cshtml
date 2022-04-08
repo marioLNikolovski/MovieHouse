@@ -19,6 +19,7 @@
     <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
     <link rel="stylesheet" href="~/css/plugins.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/site.css">
 </head>
 <body>
     @*<header>
@@ -51,109 +52,6 @@
         </div>
     </div>
     <!--end of preloading-->
-    <!--login form popup-->
-    <div class="login-wrapper" id="login-content">
-        <div class="login-content">
-            <a href="#" class="close">x</a>
-            <h3>Login</h3>
-            <form method="post" action="login.php">
-                <div class="row">
-                    <label for="username">
-                        Username:
-                        <input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
-                    </label>
-                </div>
-
-                <div class="row">
-                    <label for="password">
-                        Password:
-                        <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <div class="remember">
-                        <div>
-                            <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
-                        </div>
-                        <a href="#">Forget password ?</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-            <div class="row">
-                <p>Or via social</p>
-                <div class="social-btn-2">
-                    <a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
-                    <a class="tw" href="#"><i class="ion-social-twitter"></i>twitter</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end of login form popup-->
-    <!--signup form popup-->
-    <div class="login-wrapper" id="signup-content">
-        <div class="login-content">
-            <a href="#" class="close">x</a>
-            <h3>sign up</h3>
-            <form method="post" action="">
-
-                <div class="row">
-                    <label for="email-2">
-                        email:
-                        <input type="text" name="email" id="email-2" placeholder="" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="firstName">
-                        First Name:
-                        <input type="text" name="firstName" id="firstName" placeholder="" required="required" />
-                    </label>
-                </div>
-                 <div class="row">
-                    <label for="lastName">
-                        Last Name:
-                        <input type="text" name="lastName" id="lastName" placeholder="" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="age">
-                        age:
-                        <input type="text" name="age" id="age" placeholder="" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="country">
-                        country:
-                        <input type="text" name="country" id="country" placeholder="" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="city">
-                        city:
-                        <input type="text" name="city" id="city" placeholder="" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="password-2">
-                        Password:
-                        <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <label for="repassword-2">
-                        re-type Password:
-                        <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                    </label>
-                </div>
-                <div class="row">
-                    <button type="submit">sign up</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!--end of signup form popup-->
     <!-- BEGIN | Header -->
     <header class="ht-header">
         <div class="container">
@@ -248,8 +146,25 @@
                             </ul>
                         </li>
                         <li><a href="#">Help</a></li>
-                        <li class="loginLink"><a href="#">LOG In</a></li>
-                        <li class="btn signupLink"><a href="#">sign up</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                        }
+                        else
+                        {
+                            <li class="loginButton">
+                                <a  asp-area="Identity" asp-page="/Account/Login" >Log In</a>
+
+                            </li>
+                            <li class="btn signupLink">
+
+                                <a asp-area="Identity" asp-page="/Account/Register">Sign Up</a>
+
+                            </li>
+                        }
+
+
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -328,9 +243,7 @@
             </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
 
     <script src="~/js/jquery.js"></script>
     <script src="~/js/plugins.js"></script>

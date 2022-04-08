@@ -1,4 +1,4 @@
-﻿using MovieHouse.Infrastructure.Identity;
+﻿using MovieHouse.Infrastructure.Data.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieHouse.Infrastructure.Data.Models

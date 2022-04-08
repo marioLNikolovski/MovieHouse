@@ -3,7 +3,7 @@ using MovieHouse.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieHouse.Infrastructure.Identity
+namespace MovieHouse.Infrastructure.Data.Identity
 {
     public class ApplicationUser : IdentityUser
     {
