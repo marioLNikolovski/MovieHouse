@@ -25,3 +25,11 @@ body {
     text-transform: uppercase;
     cursor: pointer;
 }
+.registerButton {
+    font-family: 'Dosis', sans-serif;
+    font-size: 14px;
+    color: #abb7c4;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
