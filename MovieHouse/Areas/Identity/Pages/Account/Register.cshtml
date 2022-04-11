@@ -2,7 +2,7 @@
 @model RegisterModel
 
 @{
-    
+
     Layout = null;
 }
 
@@ -44,58 +44,48 @@
             <div class="login-content">
                 <a href="#" class="close">x</a>
                 <h3>sign up</h3>
-                <form method="post">
-
+                <form id="registerForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
-                        <label for="email-2">
-                            email:
-                            <input type="text" name="email" id="email-2" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="firstName">
-                            First Name:
-                            <input type="text" name="firstName" id="firstName" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" autocomplete="firstName" aria-required="true" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="lastName">
-                            Last Name:
-                            <input type="text" name="lastName" id="lastName" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" autocomplete="lastName" aria-required="true" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="age">
-                            age:
-                            <input type="text" name="age" id="age" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.Age"></label>
+                        <input asp-for="Input.Age" class="form-control" autocomplete="age" aria-required="true" />
+                        <span asp-validation-for="Input.Age" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="country">
-                            country:
-                            <input type="text" name="country" id="country" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.Country"></label>
+                        <input asp-for="Input.Country" class="form-control" autocomplete="country" aria-required="true" />
+                        <span asp-validation-for="Input.Country" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="city">
-                            city:
-                            <input type="text" name="city" id="city" placeholder="" required="required" />
-                        </label>
+                        <label asp-for="Input.City"></label>
+                        <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" />
+                        <span asp-validation-for="Input.City" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label for="password-2">
-                            Password:
-                            <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                        </label>
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     <div class="row">
-                        <label for="repassword-2">
-                            re-type Password:
-                            <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
-                        </label>
-                    </div>
-                    <div class="row">
-                        <button type="submit">sign up</button>
+                        <button id="registerSubmit" type="submit">sign up</button>
                     </div>
                 </form>
             </div>
@@ -104,16 +94,16 @@
 
     <!--end of signup form popup-->
 
-    
-        <div class="container">
-            <div class="row">
-                <div class="middle-content">
-                    <a href="/"><img class="md-logo" src="~/images/logo1.png" alt=""></a>
-                    <a href="/" class="redbtn">go home</a>
-                </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="middle-content">
+                <a href="/"><img class="md-logo" src="~/images/logo1.png" alt=""></a>
+                <a href="/" class="redbtn">go home</a>
             </div>
         </div>
-   
+    </div>
+
     <script src="~/js/jquery.js"></script>
     @*<script src="~/js/plugins.js"></script>
         <script src="~/js/plugins2.js"></script>

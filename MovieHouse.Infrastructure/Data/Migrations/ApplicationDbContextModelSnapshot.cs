@@ -159,6 +159,98 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CityId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Actor", b =>
                 {
                     b.Property<string>("Id")
@@ -220,6 +312,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CountryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -370,98 +463,6 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.ToTable("UsersMoviesReviews");
                 });
 
-            modelBuilder.Entity("MovieHouse.Infrastructure.Identity.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CityId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CountryId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -473,7 +474,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -482,7 +483,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -497,7 +498,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -506,11 +507,30 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", b =>
+                {
+                    b.HasOne("MovieHouse.Infrastructure.Data.Models.City", "City")
+                        .WithMany("UserBorned")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
+                        .WithMany("UsersBorned")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Actor", b =>
@@ -553,9 +573,13 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.City", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", null)
+                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
                         .WithMany("Cities")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Movie", b =>
@@ -594,7 +618,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.UserMovies", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("FavoriteMovies")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -613,7 +637,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.UserMoviesRating", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("UserMoviesRating")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -632,7 +656,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.UserMoviesReviews", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Identity.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("MoviesReviews")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -649,23 +673,13 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieHouse.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("MovieHouse.Infrastructure.Data.Identity.ApplicationUser", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Data.Models.City", "City")
-                        .WithMany("UserBorned")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("FavoriteMovies");
 
-                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
-                        .WithMany("UsersBorned")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("MoviesReviews");
 
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
+                    b.Navigation("UserMoviesRating");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Actor", b =>
@@ -707,15 +721,6 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.Navigation("Ratings");
 
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("MovieHouse.Infrastructure.Identity.ApplicationUser", b =>
-                {
-                    b.Navigation("FavoriteMovies");
-
-                    b.Navigation("MoviesReviews");
-
-                    b.Navigation("UserMoviesRating");
                 });
 #pragma warning restore 612, 618
         }

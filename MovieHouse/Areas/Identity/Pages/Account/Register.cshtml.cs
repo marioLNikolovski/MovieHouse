@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using MovieHouse.Infrastructure.Data.Identity;
+using MovieHouse.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -126,7 +127,28 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var country = new Country()
+                {
+                    Name = Input.Country
+                };
+
+                var city = new City()
+                {
+                    Name = Input.City,
+                    CountryId = country.Id,
+                };
+
+                var user = new ApplicationUser()
+                {
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Age = Input.Age,
+                    Country = country,
+                    City = city,
+                    ProfilePicture = null
+
+                };
 
                 await _userStore.SetUserNameAsync(user,Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
