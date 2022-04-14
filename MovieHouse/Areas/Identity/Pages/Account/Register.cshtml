@@ -68,13 +68,17 @@
                     </div>
                     <div class="row">
                         <label asp-for="Input.Country"></label>
-                        <input asp-for="Input.Country" class="form-control" autocomplete="country" aria-required="true" />
-                        <span asp-validation-for="Input.Country" class="text-danger"></span>
+                        <select id="CountryList" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
+                            <option value="">-- Select Country --</option>
+                        </select>
+
                     </div>
                     <div class="row">
                         <label asp-for="Input.City"></label>
-                        <input asp-for="Input.City" class="form-control" autocomplete="city" aria-required="true" />
-                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                        <select id=CityList>
+                            <option value="-1">-- Select City --</option>
+                        </select>
+                        
                     </div>
                     <div class="row">
                         <label asp-for="Input.Password"></label>
@@ -105,9 +109,30 @@
     </div>
 
     <script src="~/js/jquery.js"></script>
-    @*<script src="~/js/plugins.js"></script>
-        <script src="~/js/plugins2.js"></script>
-        <script src="~/js/custom.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $("#CountryList").change(function () {
+                $("#CityList").empty();
+                $.ajax({
+                    type: 'Get',
+                    url: '@Url.Action("LoadCity")',
+
+                    datatype: 'json',
+                    data: {id: $("#CountryList").val() },
+
+                    success: function(cities) {
+                        $("#CityList").append('<option value="' + -1 + '">' +
+                        "Select City" + '</option>');
+                        $.each(cities, function (i,city) {
+                            $("#CityList").append('<option value=' + city.value + '">' +
+                            city.text + '</option>');
+                        });
+                    },
+                });
+            })
+        });
+    </script>
+
 
 </body>
 </html>

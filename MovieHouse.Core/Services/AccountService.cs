@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieHouse.Core.Contracts;
-using MovieHouse.Infrastructure.Data.Common;
 using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieHouse.Core.Services
 {

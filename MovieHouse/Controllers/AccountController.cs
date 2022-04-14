@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieHouse.Core.Contracts;
+using MovieHouse.Infrastructure.Data.Models;
+using MovieHouse.Infrastructure.Data.Repositories;
 using MovieHouse.Models;
 
 namespace MovieHouse.Controllers
@@ -8,10 +11,15 @@ namespace MovieHouse.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
+        private readonly IApplicationDbRepository repo;
 
-        public AccountController(IAccountService _accountService)
+        public AccountController(
+            IAccountService _accountService,
+            IApplicationDbRepository _repo
+            )
         {
             accountService = _accountService;
+            repo = _repo;
         }
         public async Task<IActionResult> UserPage()
         {
@@ -21,6 +29,8 @@ namespace MovieHouse.Controllers
             vm.Initial = "userPage";
             return View("UserProfile", vm);
         }
+
+       
 
     }
 }
