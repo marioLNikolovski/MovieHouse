@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieHouse.Infrastructure.Data.Repositories
 {
-    internal interface IApplicationDbRepository : IRepository
+    public interface IApplicationDbRepository : IRepository
     {
     }
 }

@@ -19,7 +19,7 @@ namespace MovieHouse.Infrastructure.Data.Models
         [StringLength(90)]
         public string Name { get; set; }
 
-        public string CountryId { get; set; } 
+        public string CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; set; }
 

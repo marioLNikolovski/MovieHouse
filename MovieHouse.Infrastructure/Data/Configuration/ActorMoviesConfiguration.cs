@@ -25,7 +25,11 @@ namespace MovieHouse.Infrastructure.Data.Configuration
                .HasForeignKey(e => e.ActorId).
                OnDelete(DeleteBehavior.Restrict);
 
+            
+
             builder.HasKey(e => new { e.ActorId, e.MovieId });
+
+
         }
     }
 }

@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieHouse.Infrastructure.Data;
 
 #nullable disable
 
-namespace MovieHouse.Infrastructure.Data.Migrations
+namespace MovieHouse.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220414161244_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,7 +223,6 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -325,6 +326,32 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0085ed9d-dd87-4f6e-a3f8-07bd6a9fd234",
+                            CountryId = "2df41905-09c5-4fda-8969-82198491b4b3",
+                            Name = "Sofia"
+                        },
+                        new
+                        {
+                            Id = "00be197c-e96d-448e-b6b0-95e9561b6f1e",
+                            CountryId = "47d41ce9-16a8-4432-9db2-a00e0641069d",
+                            Name = "Rome"
+                        },
+                        new
+                        {
+                            Id = "25a950ad-9e91-44ba-a3e3-a35ff430afcf",
+                            CountryId = "ac8fe54f-9590-4634-80e1-61f99c423de4",
+                            Name = "Berlin"
+                        },
+                        new
+                        {
+                            Id = "3a2add9b-844c-4415-82f3-737835f2ebe6",
+                            CountryId = "d05d0177-61c3-40ac-a106-25e3d950e68b",
+                            Name = "Paris"
+                        });
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Country", b =>
@@ -340,6 +367,28 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2df41905-09c5-4fda-8969-82198491b4b3",
+                            Name = "Bulgaria"
+                        },
+                        new
+                        {
+                            Id = "47d41ce9-16a8-4432-9db2-a00e0641069d",
+                            Name = "Italy"
+                        },
+                        new
+                        {
+                            Id = "ac8fe54f-9590-4634-80e1-61f99c423de4",
+                            Name = "Germany"
+                        },
+                        new
+                        {
+                            Id = "d05d0177-61c3-40ac-a106-25e3d950e68b",
+                            Name = "France"
+                        });
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Genre", b =>
@@ -538,13 +587,13 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.HasOne("MovieHouse.Infrastructure.Data.Models.City", "BirthCity")
                         .WithMany("ActorsBorned")
                         .HasForeignKey("BirthCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "BirthCountry")
                         .WithMany("ActorsBorned")
                         .HasForeignKey("BirthCountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("BirthCity");
@@ -576,7 +625,7 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Country");
@@ -589,9 +638,9 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                         .HasForeignKey("ActorId");
 
                     b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Movies")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Country");
@@ -701,6 +750,8 @@ namespace MovieHouse.Infrastructure.Data.Migrations
                     b.Navigation("ActorsBorned");
 
                     b.Navigation("Cities");
+
+                    b.Navigation("Movies");
 
                     b.Navigation("UsersBorned");
                 });

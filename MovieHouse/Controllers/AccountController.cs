@@ -1,27 +1,25 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
-
+using MovieHouse.Core.Contracts;
+using MovieHouse.Models;
 
 namespace MovieHouse.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View("Register");
-        }
+        private readonly IAccountService accountService;
 
-        [HttpGet]
-        public IActionResult Login()
+        public AccountController(IAccountService _accountService)
         {
-            return View("Login");
+            accountService = _accountService;
         }
-
-        [HttpPost]
-        public IActionResult Login(LoginModel model)
+        public async Task<IActionResult> UserPage()
         {
-            return View("Login");
+            var userId = this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            var user = await accountService.FindUserByIdAsync(userId);
+            var vm = new UserViewModel(user);
+            vm.Initial = "userPage";
+            return View("UserProfile", vm);
         }
 
     }

@@ -31,12 +31,12 @@ namespace MovieHouse.Infrastructure.Data.Models
 
 
         public string BirthCityId { get; set; }
-        [ForeignKey(nameof(BirthCityId))]
+      
         public City BirthCity { get; set; }
 
 
         public string BirthCountryId { get; set; }
-        [ForeignKey(nameof(BirthCountryId))]
+      
         public Country BirthCountry { get; set; }
 
         public ICollection<ActorMovies> ActedIn { get; set; }

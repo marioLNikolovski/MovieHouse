@@ -17,7 +17,7 @@ namespace MovieHouse.Infrastructure.Data.Identity
         [Range(18, 99)]
         public int Age { get; set; }
 
-        public string ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
         public string CountryId { get; set; }
         [ForeignKey(nameof(CountryId))]

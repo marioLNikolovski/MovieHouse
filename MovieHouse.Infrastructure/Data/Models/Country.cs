@@ -13,6 +13,7 @@ namespace MovieHouse.Infrastructure.Data.Models
         public string Name { get; set; }
 
         public ICollection<City> Cities { get; set; }
+        public ICollection<Movie> Movies { get; set; }
 
         public ICollection<ApplicationUser> UsersBorned { get; set; }
         public ICollection<Actor> ActorsBorned { get; set; }
@@ -22,6 +23,7 @@ namespace MovieHouse.Infrastructure.Data.Models
             Cities = new List<City>();
             UsersBorned = new List<ApplicationUser>();
             ActorsBorned = new List<Actor>();
+            Movies = new List<Movie>();
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieHouse.Core.Contracts;
+using MovieHouse.Core.Services;
 using MovieHouse.Infrastructure.Data;
+using MovieHouse.Infrastructure.Data.Common;
 using MovieHouse.Infrastructure.Data.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -8,8 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ApplicationDbRepository, ApplicationDbRepository>();
-            
+            services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
+
+            services.AddScoped<IAccountService, AccountService>();
+
+
 
             return services;
         }

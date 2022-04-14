@@ -177,7 +177,7 @@ namespace MovieHouse.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToPage("/Account/Login");
                     }
                 }
                 foreach (var error in result.Errors)

@@ -25,7 +25,7 @@ namespace MovieHouse.Infrastructure.Data.Models
 
 
         public string CountryId { get; set; }
-        [ForeignKey(nameof(CountryId))]
+        
         public Country Country { get; set; }
 
         public ICollection<MoviesGenres> Genres { get; set; }
