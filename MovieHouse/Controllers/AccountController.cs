@@ -29,8 +29,24 @@ namespace MovieHouse.Controllers
             vm.Initial = "userPage";
             return View("UserProfile", vm);
         }
+        public async Task<IActionResult> UserFavoriteMoviesPage()
+        {
+            var userId = this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            var user = await accountService.FindUserByIdAsync(userId);
+            var vm = new UserViewModel(user);
+            vm.Initial = "userFavoriteMoviesPage";
+            return View("UserFavoriteMovieList", vm);
+        }
+        public async Task<IActionResult> UserRatedMoviesPage()
+        {
+            var userId = this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            var user = await accountService.FindUserByIdAsync(userId);
+            var vm = new UserViewModel(user);
+            vm.Initial = "UserRatedMoviesPage";
+            return View("UserRatedMoviesList", vm);
+        }
 
-       
+
 
     }
 }

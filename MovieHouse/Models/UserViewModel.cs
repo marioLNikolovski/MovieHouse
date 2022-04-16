@@ -1,10 +1,12 @@
 ﻿using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Models;
+using MovieHouse.Infrastructure.Data.Repositories;
 
 namespace MovieHouse.Models
 {
     public class UserViewModel
     {
+       
         public UserViewModel(ApplicationUser user)
         {
             Id = user.Id;
@@ -15,6 +17,7 @@ namespace MovieHouse.Models
             City = user.City;
             Age = user.Age;
             ProfilePicture = user.ProfilePicture;
+           
         }
 
 
@@ -35,6 +38,8 @@ namespace MovieHouse.Models
         public City City { get; set; }
 
         public string Initial { get; set; }
+
+        
 
 
         //public ICollection<UserMovies> FavoriteMovies { get; set; }

@@ -122,7 +122,7 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             [Required]
             [StringLength(90, ErrorMessage = "Invalid city.")]
             public string City { get; set; }
-            public IEnumerable<Country> CountryList { get; set; }   
+             
         }
 
         
@@ -142,16 +142,11 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var country = new Country()
-                {
-                    Name = Input.Country
-                };
+               
+                var country = repo.All<Country>().Where(x => x.Id == Input.Country).First();
 
-                var city = new City()
-                {
-                    Name = Input.City,
-                    CountryId = country.Id,
-                };
+                var city = repo.All<City>().Where(x => x.Id == Input.City).First();
+             
 
                 var user = new ApplicationUser()
                 {
