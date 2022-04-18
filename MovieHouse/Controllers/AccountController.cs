@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MovieHouse.Core.Constants;
 using MovieHouse.Core.Contracts;
-using MovieHouse.Infrastructure.Data.Models;
+using MovieHouse.Core.Models;
+using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Repositories;
-using MovieHouse.Models;
+
 
 namespace MovieHouse.Controllers
 {
@@ -12,14 +14,17 @@ namespace MovieHouse.Controllers
     {
         private readonly IAccountService accountService;
         private readonly IApplicationDbRepository repo;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public AccountController(
             IAccountService _accountService,
-            IApplicationDbRepository _repo
+            IApplicationDbRepository _repo,
+            UserManager<ApplicationUser> _userManager
             )
         {
             accountService = _accountService;
             repo = _repo;
+            userManager = _userManager;
         }
         public async Task<IActionResult> UserPage()
         {
@@ -46,6 +51,25 @@ namespace MovieHouse.Controllers
             return View("UserRatedMoviesList", vm);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await accountService.UpdateUser(model))
+            {
+                ViewData[MessageConstants.SuccessMessage] = "Saved successfully!";
+            }
+            else
+            {
+                ViewData[MessageConstants.ErrorMessage] = "There was a problem!";
+            }
+
+            return View(model);
+        }
 
 
     }

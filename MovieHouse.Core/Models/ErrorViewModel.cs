@@ -1,4 +1,4 @@
-namespace MovieHouse.Models
+namespace MovieHouse.Core.Models
 {
     public class ErrorViewModel
     {

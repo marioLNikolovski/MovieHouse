@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
-using MovieHouse.Models;
+
 using System.Diagnostics;
 
 namespace MovieHouse.Controllers

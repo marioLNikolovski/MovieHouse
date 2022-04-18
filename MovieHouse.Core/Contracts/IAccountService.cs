@@ -1,4 +1,6 @@
 ﻿using MovieHouse.Infrastructure.Data.Identity;
+using MovieHouse.Core.Models;
+
 
 namespace MovieHouse.Core.Contracts
 {
@@ -6,5 +8,7 @@ namespace MovieHouse.Core.Contracts
     {
         Task<ApplicationUser> FindUserByEmailAsync(string email);
         Task<ApplicationUser> FindUserByIdAsync(string userId);
+        Task<bool> UpdateUser(UserEditViewModel model);
+
     }
 }

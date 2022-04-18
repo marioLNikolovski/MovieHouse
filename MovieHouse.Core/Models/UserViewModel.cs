@@ -2,7 +2,7 @@
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
 
-namespace MovieHouse.Models
+namespace MovieHouse.Core.Models
 {
     public class UserViewModel
     {
