@@ -1,11 +1,13 @@
 ﻿using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieHouse.Core.Models
 {
     public class UserViewModel
     {
+        
        
         public UserViewModel(ApplicationUser user)
         {
@@ -20,26 +22,36 @@ namespace MovieHouse.Core.Models
            
         }
 
+        public UserViewModel()
+        {
+
+        }
+
 
         public string Id { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
 
         public string Password { get; set; }
 
+        [Required]
         public string LastName { get; set; }
         
         public int Age { get; set; }
 
         public string? ProfilePicture { get; set; }
 
+        [Required]
         public Country Country { get; set; }
 
-
+        [Required]
         public City City { get; set; }
 
         public string Initial { get; set; }
+        public IEnumerable<Country> CountryList { get; set; }
 
-        
+
 
 
         //public ICollection<UserMovies> FavoriteMovies { get; set; }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MovieHouse.Core.Constants
+<!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
     <title>Open Pediatrics</title>
@@ -112,32 +113,35 @@
                                 <li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                news <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li><a href="bloglist.html">blog List</a></li>
-                                <li><a href="bloggrid.html">blog Grid</a></li>
-                                <li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
-                            </ul>
-                        </li>
-                         @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                community <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
+                                <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+                                    community <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu level1">
 
-                                <li><a href="userfavoritegrid.html">user favorite grid</a></li>
-                                <li><a asp-action="UserFavoriteMoviesPage" asp-controller="Account">user favorite list</a></li>
-                                <li><a asp-action="UserPage" asp-controller="Account">user profile</a></li>
-                                <li class="it-last"><a asp-action="UserRatedMoviesPage" asp-controller="Account">user rate</a></li>
-                            </ul>
+                                    <li><a href="userfavoritegrid.html">user favorite grid</a></li>
+                                    <li><a asp-action="UserFavoriteMoviesPage" asp-controller="Account">user favorite list</a></li>
+                                    <li><a asp-action="UserPage" asp-controller="Account">user profile</a></li>
+                                    <li class="it-last"><a asp-action="UserRatedMoviesPage" asp-controller="Account">user rate</a></li>
+                                </ul>
                             </li>
                         }
+                        @if (User.IsInRole(UserConstants.Roles.Admin))
+                        {
+                             <li class="dropdown first">
+                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+                                Admin <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu level1">
+                                <li><a href="bloglist.html">Add Actor</a></li>
+                                <li><a href="bloggrid.html">Add Movie</a></li>
+                            </ul>
+                        </li>
+                        }
                        
+
                     </ul>
                     <ul class="nav navbar-nav flex-child-menu menu-right" style="flex-direction: row">
                         <li class="dropdown first">

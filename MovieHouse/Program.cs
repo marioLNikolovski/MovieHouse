@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Options;
+using MovieHouse.Configurations;
+using MovieHouse.Extensions;
 using MovieHouse.Infrastructure.Data;
 using MovieHouse.Infrastructure.Data.Identity;
 
@@ -19,9 +21,18 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
+
+
+using var scope = app.Services.CreateScope();
+
+var adminUserSeedConfiguration = scope.ServiceProvider.GetService<IOptions<AdminUserSeedConfiguration>>();
+
+await ApplicationDbContextExtensions.EnsureSeeded(adminUserSeedConfiguration.Value, scope.ServiceProvider);
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -48,6 +59,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "Identity",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "Admin",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 

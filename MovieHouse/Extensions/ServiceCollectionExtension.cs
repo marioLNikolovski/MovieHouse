@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieHouse.Configurations;
 using MovieHouse.Core.Contracts;
 using MovieHouse.Core.Services;
 using MovieHouse.Infrastructure.Data;
@@ -9,12 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
-
+                
             services.AddScoped<IAccountService, AccountService>();
 
+            services.Configure<AdminUserSeedConfiguration>(configuration.GetSection(AdminUserSeedConfiguration.SECTION_NAME));
 
 
             return services;

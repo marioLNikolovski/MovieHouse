@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MovieHouse.Core\MovieHouse.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\" />
+  </ItemGroup>
+
 </Project>

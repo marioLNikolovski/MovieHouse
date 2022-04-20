@@ -4,7 +4,6 @@ using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Identity;
 using MovieHouse.Infrastructure.Data.Repositories;
 
-
 namespace MovieHouse.Core.Services
 {
     public class AccountService : IAccountService
@@ -52,31 +51,34 @@ namespace MovieHouse.Core.Services
 
         }
 
+        public async Task<IEnumerable<UserListViewModel>> GetUsers()
+        {
+            return await repo.All<ApplicationUser>()
+                .Select(x => new UserListViewModel
+                {
+                    Email = x.Email,
+                    Id = x.Id,
+                    Name = $"{x.FirstName} {x.LastName}"
+                })
+                .ToListAsync();
+        }
+
         public async Task<bool> UpdateUser(UserEditViewModel model)
         {
             bool result = false;
             var user = await repo.GetByIdAsync<ApplicationUser>(model.Id);
 
-            var email = await repo.All<ApplicationUser>().Where(x => x.Email == model.Email).FirstAsync();
-            if (email == null)
-            {
-                throw new ArgumentException("There is a user registered with that email.");
-            }
-            else
-            {
                 if (user != null)
                 {
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
-                    user.Country = model.Country;
-                    user.City = model.City;
-                    user.Email = model.Email;
-
+                    user.CountryId = model.Country;
+                    user.CityId = model.City;
+                   
+                  
                     await repo.SaveChangesAsync();
                     result = true;
                 }
-            }
-
             return result;
         }
     }

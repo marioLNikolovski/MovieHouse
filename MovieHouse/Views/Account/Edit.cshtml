@@ -1,12 +1,13 @@
-﻿@page
-@model ChangePasswordModel
+﻿@using MovieHouse.Core.Models
+@model UserEditViewModel;
 
-
+<body>
 <div class="hero user-hero">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-ct">
+                    <h1>@Model.FirstName @Model.LastName profile</h1>
                     <ul class="breadcumb">
                         <li class="active"><a href="#">Home</a></li>
                         <li> <span class="ion-ios-arrow-right"></span>Profile</li>
@@ -37,6 +38,7 @@
                         <p>Others</p>
                         <ul>
                             <li><a asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Change password</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Manage/Email">Change email</a></li>
                             <li class="redbtn">
                                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
                                     <button type="submit" class="nav-link btn btn-link text-white">Log Out</button>
@@ -48,28 +50,34 @@
             </div>
             <div class="col-md-9 col-sm-12 col-xs-12">
                 <div class="form-style-1 user-pro" action="">
-                    <form id="change-password-form" method="post">
-                        <h4>Change password</h4>
+                    <form asp-action="Edit" asp-controller="Account" method="post">
+                        <h4>01. Profile details</h4>
+                        <input type="hidden" name="Id" value="@Model.Id"/>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row">
                             <div class="col-md-6 form-it">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <label asp-for="Input.OldPassword" class="form-label"></label>
-                                <input asp-for="Input.OldPassword" class="form-control" autocomplete="current-password" aria-required="true" />
-                                <span asp-validation-for="Input.OldPassword" class="text-danger"></span>
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control" aria-required="true" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-it">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" class="form-control" aria-required="true" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-it">
-                                <label asp-for="Input.NewPassword" class="form-label"></label>
-                                <input asp-for="Input.NewPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                                <span asp-validation-for="Input.NewPassword" class="text-danger"></span>
+                                <label asp-for="Country"></label>
+                                <<select id="CountryList" asp-for="Country" class="form-control" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
+                                    <option value="">-- Select Country --</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6 form-it">
-                                <label asp-for="Input.ConfirmPassword" class="form-label"></label>
-                                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                <label asp-for="City"></label>
+                                <select id="CityList" asp-for="City" class="form-control" aria-required="true">
+                                    <option value="-1">-- Select City --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -78,7 +86,7 @@
                             </div>
                         </div>
                     </form>
-
+                    
                 </div>
             </div>
         </div>
@@ -87,10 +95,33 @@
 <!-- footer section-->
 <!-- end of footer section-->
 
-<script src="js/jquery.js"></script>
+<script src="~/js/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#CountryList").change(function () {
+            $("#CityList").empty();
+            $.ajax({
+                type: 'Get',
+                url: '@Url.Action("LoadCity")',
 
+                datatype: 'json',
+                data: {id: $("#CountryList").val() },
 
+                success: function(cities) {
+                    $("#CityList").append('<option value="' + -1 + '">' +
+                    "Select City" + '</option>');
+                    $.each(cities, function (i,city) {
+                        $("#CityList").append('<option value=' + city.value + '>' +
+                        city.text + '</option>');
+                    });
+                },
+            });
+        })
+    });
+</script>
+</body>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
+
