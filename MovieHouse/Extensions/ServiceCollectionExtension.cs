@@ -16,6 +16,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 
             services.AddScoped<IAccountService, AccountService>();
 
+            services.AddScoped<IActorService, ActorService>();
+
             services.Configure<AdminUserSeedConfiguration>(configuration.GetSection(AdminUserSeedConfiguration.SECTION_NAME));
 
 

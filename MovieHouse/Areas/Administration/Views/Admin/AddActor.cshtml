@@ -1,0 +1,130 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using MovieHouse.Areas.Administration.Models
+@model AddActorViewModel
+
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+<head>
+    <!-- Basic need -->
+    <title>Add Actor</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+
+    <!-- Mobile specific meta -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone-no">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="~/css/plugins.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <!--signup form -->
+    <div class="overlay openform">
+        <div class="login-wrapper" id="signup-content">
+            <div class="login-content">
+                <a href="/" class="close">x</a>
+                <h3>Add Actor</h3>
+                <form id="addActorForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" autocomplete="firstName" aria-required="true" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" autocomplete="lastName" aria-required="true" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <label asp-for="BirthCityId"></label>
+                        <input asp-for="BirthCityId" class="form-control" aria-required="true" />
+                        <span asp-validation-for="BirthCityId" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <label asp-for="BirthCountryId"></label>
+                        <input asp-for="BirthCountryId" class="form-control" aria-required="true" />
+                        <span asp-validation-for="BirthCountryId" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <label asp-for="Age"></label>
+                        <input asp-for="Age" class="form-control" autocomplete="age" aria-required="true" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <label asp-for="BirthDate"></label>
+                        <input asp-for="BirthDate" class="form-control" aria-required="true" />
+                        
+                    </div>
+                    <div class="row">
+                        <button id="registerSubmit" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--end of signup form popup-->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="middle-content">
+                <a href="/"><img class="md-logo" src="~/images/logo1.png" alt=""></a>
+                <a href="/" class="redbtn">go home</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#CountryList").change(function () {
+                $("#CityList").empty();
+                $.ajax({
+                    type: 'Get',
+                    url: '@Url.Action("LoadCity")',
+
+                    datatype: 'json',
+                    data: {id: $("#CountryList").val() },
+
+                    success: function(cities) {
+                        $("#CityList").append('<option value="' + -1 + '">' +
+                        "Select City" + '</option>');
+                        $.each(cities, function (i,city) {
+                            $("#CityList").append('<option value=' + city.value + '>' +
+                            city.text + '</option>');
+                        });
+                    },
+                });
+            })
+        });
+    </script>
+
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+</body>
+</html>

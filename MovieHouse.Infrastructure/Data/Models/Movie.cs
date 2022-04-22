@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MovieHouse.Infrastructure.Data.Models
 {
@@ -21,7 +15,7 @@ namespace MovieHouse.Infrastructure.Data.Models
         public DateTime ReleaseDate { get; set; }
 
 
-        public string CoverPhoto { get; set; }
+        public string? CoverPhoto { get; set; }
 
 
         public string CountryId { get; set; }

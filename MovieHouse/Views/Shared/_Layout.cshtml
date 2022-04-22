@@ -120,8 +120,6 @@
                                     community <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </a>
                                 <ul class="dropdown-menu level1">
-
-                                    <li><a href="userfavoritegrid.html">user favorite grid</a></li>
                                     <li><a asp-action="UserFavoriteMoviesPage" asp-controller="Account">user favorite list</a></li>
                                     <li><a asp-action="UserPage" asp-controller="Account">user profile</a></li>
                                     <li class="it-last"><a asp-action="UserRatedMoviesPage" asp-controller="Account">user rate</a></li>
@@ -135,7 +133,7 @@
                                 Admin <i class="fa fa-angle-down" aria-hidden="true"></i>
                             </a>
                             <ul class="dropdown-menu level1">
-                                <li><a href="bloglist.html">Add Actor</a></li>
+                                <li><a asp-area="Administration" asp-action="AddActor" asp-controller="Admin">Add Actor</a></li>
                                 <li><a href="bloggrid.html">Add Movie</a></li>
                             </ul>
                         </li>

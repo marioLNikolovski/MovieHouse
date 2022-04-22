@@ -51,17 +51,6 @@ namespace MovieHouse.Core.Services
 
         }
 
-        public async Task<IEnumerable<UserListViewModel>> GetUsers()
-        {
-            return await repo.All<ApplicationUser>()
-                .Select(x => new UserListViewModel
-                {
-                    Email = x.Email,
-                    Id = x.Id,
-                    Name = $"{x.FirstName} {x.LastName}"
-                })
-                .ToListAsync();
-        }
 
         public async Task<bool> UpdateUser(UserEditViewModel model)
         {
