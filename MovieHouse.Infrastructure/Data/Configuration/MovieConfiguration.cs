@@ -18,6 +18,14 @@ namespace MovieHouse.Infrastructure.Data.Configuration
               .WithMany(e => e.Movies)
               .HasForeignKey(e => e.CountryId)
               .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+              .HasOne(e => e.DirectedBy)
+              .WithMany(e => e.DirectedMovies)
+              .HasForeignKey(e => e.DirectedById)
+              .OnDelete(DeleteBehavior.NoAction);
+
+
         }
     }
 }

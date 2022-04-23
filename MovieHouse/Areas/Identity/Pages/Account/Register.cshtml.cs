@@ -17,6 +17,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.EntityFrameworkCore;
 using System.Web.Helpers;
+using MovieHouse.Infrastructure.Data;
 
 namespace MovieHouse.Areas.Identity.Pages.Account
 {
@@ -29,6 +30,7 @@ namespace MovieHouse.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IApplicationDbRepository repo;
+        private readonly ApplicationDbContext context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -36,7 +38,8 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IApplicationDbRepository _repo
+            IApplicationDbRepository _repo,
+            ApplicationDbContext _context
             )
         {
             _userManager = userManager;
@@ -46,6 +49,8 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             repo = _repo;
+            context = _context;
+
         }
 
         /// <summary>

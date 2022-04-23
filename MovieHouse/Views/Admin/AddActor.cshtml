@@ -27,7 +27,8 @@
 
     <!--Google Font-->
     <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
-    <link href="~/multiselect/example-styles.css" rel="stylesheet" />:
+    <link href="~/multiselect/example-styles.css" rel="stylesheet" />
+
 
     <!-- Mobile specific meta -->
     <meta name=viewport content="width=device-width, initial-scale=1">
@@ -77,14 +78,17 @@
                         <input asp-for="BirthDate" class="form-control" aria-required="true" />
 
                     </div>
-                    <div class="row">
-                       <label asp-for="ActedIn"></label>
-                        <select id="lstMovie" name="lstMovies" asp-items="ViewBag.Movies" multiple
-                                class="form-control" size="5"></select>
-                        <br />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="ActedIn"></label>
+                                <select id="dropDownList-example" name="ActedInIds"
+                                        asp-items="@Model.ActedIn" multiple class="form-control"></select>
+                            </div>
+                        </div>
                     </div>
-                         <div class="row">
-                       <label asp-for="DirectedMovies"></label>
+                    <div class="row">
+                        <label asp-for="DirectedMovies"></label>
                         <select id="lstMovie" name="lstMovies" asp-items="ViewBag.Movies" multiple
                                 class="form-control" size="5"></select>
                         <br />
@@ -110,18 +114,17 @@
         </div>
     </div>
 
-    <script src="~/js/jquery.js"></script>
-    @if (ViewBag.Message != null)
-    {
-        <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-        </script>
+
+
+
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     }
+   
     <script>
         $(document).ready(function () {
-            $("#CountryList").change(function () {
+            $('#dropDownList-example').multiSelect();
+              $("#CountryList").change(function () {
                 $("#CityList").empty();
                 $.ajax({
                     type: 'Get',
@@ -142,9 +145,6 @@
             })
         });
     </script>
-
-    @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
     }
 
 

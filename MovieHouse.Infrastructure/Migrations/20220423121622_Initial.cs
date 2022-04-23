@@ -164,16 +164,16 @@ namespace MovieHouse.Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoverPhoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CoverPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CountryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ActorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    DirectedById = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Movies_Actors_ActorId",
-                        column: x => x.ActorId,
+                        name: "FK_Movies_Actors_DirectedById",
+                        column: x => x.DirectedById,
                         principalTable: "Actors",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -483,14 +483,14 @@ namespace MovieHouse.Infrastructure.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_ActorId",
-                table: "Movies",
-                column: "ActorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Movies_CountryId",
                 table: "Movies",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_DirectedById",
+                table: "Movies",
+                column: "DirectedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MoviesGenres_GenreId",

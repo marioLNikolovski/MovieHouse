@@ -34,14 +34,13 @@ namespace MovieHouse.Areas.Administration.Controllers
         {
             var data = repo.All<Movie>().ToList();
 
-            List<SelectListItem> movies = (from movie in data
-                                           select new SelectListItem
-                                           {
-                                               Text = movie.Name,
-                                               Value = movie.Id
-                                           }).ToList();
-            ViewBag.Movies = movies;
-            return View();
+            var viewActorMovies = data.Select(movie => new SelectListItem { Text = movie.Name, Value = movie.Id }).ToList();
+
+            var actorViewModel = new AddActorViewModel();
+
+            actorViewModel.ActedIn = viewActorMovies;
+
+            return View(actorViewModel);
             
         }
 
@@ -52,8 +51,13 @@ namespace MovieHouse.Areas.Administration.Controllers
             if (!this.ModelState.IsValid)
             {
                 return View("AddActor", model);
+
             }
-            await actorService.AddActor(model.FirstName, model.LastName, model.BirthDate, model.BirthCountryId, model.BirthCityId, model.Photo, model.Age);
+
+           await actorService.AddActor(model.FirstName, model.LastName, model.BirthDate, model.BirthCountryId, model.BirthCityId, model.Photo, model.Age, model.ActedInIds);
+            //string firstName, string lastName, string birthDate, string countryId, string cityId, string photo, int age, string[] actedInIds
+
+
 
             return View();
         }

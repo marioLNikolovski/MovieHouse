@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieHouse.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,8 +10,9 @@ namespace MovieHouse.Areas.Administration.Models
 
         public AddActorViewModel()
         {
-            ActedIn = new List<ActorMovies>();
+
             DirectedMovies = new List<Movie>();
+            ActedIn = new List<SelectListItem>();
         }
        
 
@@ -41,11 +43,15 @@ namespace MovieHouse.Areas.Administration.Models
         public string BirthCountryId { get; set; }
 
 
-        [Display(Name = "Acted Movies")]
-        public ICollection<ActorMovies> ActedIn { get; set; }
+        
 
         [Display(Name = "Directed Movies")]
         public ICollection<Movie> DirectedMovies { get; set; }
+
+        [Display(Name = "Acted in Movies")]
+        public List<SelectListItem> ActedIn { get; set; }
+
+        public string[] ActedInIds { get; set; }   
 
 
     }

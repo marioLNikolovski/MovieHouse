@@ -33,3 +33,9 @@ body {
     text-transform: uppercase;
     cursor: pointer;
 }
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}

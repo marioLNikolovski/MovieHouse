@@ -12,7 +12,7 @@ using MovieHouse.Infrastructure.Data;
 namespace MovieHouse.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220414161244_Initial")]
+    [Migration("20220423121622_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -411,16 +411,16 @@ namespace MovieHouse.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ActorId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CountryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CoverPhoto")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DirectedById")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -432,9 +432,9 @@ namespace MovieHouse.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActorId");
-
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("DirectedById");
 
                     b.ToTable("Movies");
                 });
@@ -633,17 +633,21 @@ namespace MovieHouse.Infrastructure.Migrations
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Movie", b =>
                 {
-                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Actor", null)
-                        .WithMany("DirectedMovies")
-                        .HasForeignKey("ActorId");
-
                     b.HasOne("MovieHouse.Infrastructure.Data.Models.Country", "Country")
                         .WithMany("Movies")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Actor", "DirectedBy")
+                        .WithMany("DirectedMovies")
+                        .HasForeignKey("DirectedById")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Country");
+
+                    b.Navigation("DirectedBy");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.MoviesGenres", b =>
