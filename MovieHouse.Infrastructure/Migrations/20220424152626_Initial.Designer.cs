@@ -12,7 +12,7 @@ using MovieHouse.Infrastructure.Data;
 namespace MovieHouse.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220423121622_Initial")]
+    [Migration("20220424152626_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -404,6 +404,53 @@ namespace MovieHouse.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "36ac357b-18ef-4fd2-83cc-c7be47422aa1",
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = "f5039649-7040-42c3-8d4e-41f303808d47",
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = "76d9b9a6-9f19-4faa-8f3f-61601ad544b6",
+                            Name = "Drama"
+                        },
+                        new
+                        {
+                            Id = "86a5b294-6326-46ff-970a-b49ca945df3c",
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = "5598e6a3-555d-4b45-8b71-fee892d70c8c",
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = "4c0cc434-a39d-4c8d-a0ad-7ebf39e8d069",
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = "261ce8fc-693f-4818-af77-f2a920bf3b8f",
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = "b07e9e0e-8883-4f40-9e87-b2ac19fd5cd0",
+                            Name = "Science Fiction"
+                        },
+                        new
+                        {
+                            Id = "fc7a2aa4-98b8-42de-9cf3-ec915a6ddaf2",
+                            Name = "Western"
+                        });
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Movie", b =>
@@ -418,9 +465,8 @@ namespace MovieHouse.Infrastructure.Migrations
                     b.Property<string>("CoverPhoto")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DirectedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("DirectedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -433,8 +479,6 @@ namespace MovieHouse.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("DirectedById");
 
                     b.ToTable("Movies");
                 });
@@ -639,15 +683,7 @@ namespace MovieHouse.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("MovieHouse.Infrastructure.Data.Models.Actor", "DirectedBy")
-                        .WithMany("DirectedMovies")
-                        .HasForeignKey("DirectedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Country");
-
-                    b.Navigation("DirectedBy");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.MoviesGenres", b =>
@@ -738,8 +774,6 @@ namespace MovieHouse.Infrastructure.Migrations
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.Actor", b =>
                 {
                     b.Navigation("ActedIn");
-
-                    b.Navigation("DirectedMovies");
                 });
 
             modelBuilder.Entity("MovieHouse.Infrastructure.Data.Models.City", b =>

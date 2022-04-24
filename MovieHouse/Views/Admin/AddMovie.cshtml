@@ -1,6 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using MovieHouse.Areas.Administration.Models
-@model AddActorViewModel
+@model AddMovieViewModel
 
 @{
 
@@ -45,51 +45,50 @@
         <div class="login-wrapper" id="signup-content">
             <div class="login-content">
                 <a href="/" class="close">x</a>
-                <h3>Add Actor</h3>
-                <form asp-controller="Admin" asp-action="AddActor" method="post">
+                <h3>Add Movie</h3>
+                <form asp-controller="Admin" asp-action="AddMovie" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
-                        <label asp-for="FirstName"></label>
-                        <input asp-for="FirstName" class="form-control" autocomplete="firstName" aria-required="true" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" autocomplete="firstName" aria-required="true" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="row">
-                        <label asp-for="LastName"></label>
-                        <input asp-for="LastName" class="form-control" autocomplete="lastName" aria-required="true" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                     <div class="row">
-                            
-                                <label asp-for="BirthCountryId"></label>
-                                <<select id="CountryList" asp-for="BirthCountryId" class="form-control" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
-                                    <option value="">-- Select Country --</option>
-                                </select>
-                        </div> 
-                        <div class="row">
-                                <label asp-for="BirthCityId"></label>
-                                <select id="CityList" asp-for="BirthCityId" class="form-control" aria-required="true">
-                                    <option value="-1">-- Select City --</option>
-                                </select>
-                        </div>
-                    <div class="row">
-                        <label asp-for="Age"></label>
-                        <input asp-for="Age" class="form-control" autocomplete="age" aria-required="true" />
-                        <span asp-validation-for="Age" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <label asp-for="BirthDate"></label>
-                        <input asp-for="BirthDate" class="form-control" aria-required="true" />
+                        <label asp-for="ReleaseDate"></label>
+                        <input asp-for="ReleaseDate" class="form-control" aria-required="true" />
 
+                    </div>
+                    <div class="row">
+
+                        <label asp-for="CountryId"></label>
+                        <<select id="CountryList" asp-for="CountryId" class="form-control" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
+                            <option value="">-- Select Country --</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label asp-for="DirectedById"></label>
+                        <input asp-for="DirectedById" class="form-control" aria-required="true" />
+                        <span asp-validation-for="DirectedById" class="text-danger"></span>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <label asp-for="ActedIn"></label>
-                                <select id="dropDownList-example" name="ActedInIds"
-                                        asp-items="@Model.ActedIn" multiple class="form-control"></select>
+                                <label asp-for="Actors"></label>
+                                <select id="dropDownList-example" name="ActorsIds"
+                                        asp-items="@Model.Actors" multiple class="form-control"></select>
                             </div>
                         </div>
                     </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="Genres"></label>
+                                <select id="dropDownList-example" name="GenresIds"
+                                        asp-items="@Model.Genres" multiple class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <button id="registerSubmit" type="submit">Add</button>
                     </div>
@@ -113,10 +112,11 @@
 
 
 
-   
-    <script src="~/js/jquery.js"></script>
+  
+     <script src="~/js/jquery.js"></script>
     <script>
         $(document).ready(function () {
+            $('#dropDownList-example').multiSelect();
               $("#CountryList").change(function () {
                 $("#CityList").empty();
                 $.ajax({
@@ -139,6 +139,7 @@
         });
     </script>
     
+     
     @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/multiselect/jquery.multi-select.js"></script>
@@ -148,6 +149,7 @@
         });
     </script>
     }
+
 
 </body>
 </html>

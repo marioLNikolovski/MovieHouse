@@ -18,6 +18,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddScoped<IActorService, ActorService>();
 
+            services.AddScoped<IMovieService, MovieService>();
+
             services.Configure<AdminUserSeedConfiguration>(configuration.GetSection(AdminUserSeedConfiguration.SECTION_NAME));
 
 

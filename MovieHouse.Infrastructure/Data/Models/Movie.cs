@@ -22,8 +22,8 @@ namespace MovieHouse.Infrastructure.Data.Models
         
         public Country Country { get; set; }
 
-        public Actor DirectedBy { get; set; }
-        public string? DirectedById   { get; set; }
+       
+        public string? DirectedBy   { get; set; }
 
         public ICollection<MoviesGenres> Genres { get; set; }
         public ICollection<ActorMovies> Actors { get; set; }

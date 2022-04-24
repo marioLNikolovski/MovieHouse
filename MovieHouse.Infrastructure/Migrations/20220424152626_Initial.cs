@@ -87,6 +87,27 @@ namespace MovieHouse.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CoverPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CountryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DirectedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Actors",
                 columns: table => new
                 {
@@ -158,29 +179,51 @@ namespace MovieHouse.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Movies",
+                name: "MoviesGenres",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoverPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DirectedById = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    MovieId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GenreId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.PrimaryKey("PK_MoviesGenres", x => new { x.MovieId, x.GenreId });
                     table.ForeignKey(
-                        name: "FK_Movies_Actors_DirectedById",
-                        column: x => x.DirectedById,
+                        name: "FK_MoviesGenres_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MoviesGenres_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActorsMovies",
+                columns: table => new
+                {
+                    ActorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MovieId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActorsMovies", x => new { x.ActorId, x.MovieId });
+                    table.ForeignKey(
+                        name: "FK_ActorsMovies_Actors_ActorId",
+                        column: x => x.ActorId,
                         principalTable: "Actors",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Movies_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id");
+                        name: "FK_ActorsMovies_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,54 +309,6 @@ namespace MovieHouse.Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ActorsMovies",
-                columns: table => new
-                {
-                    ActorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MovieId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ActorsMovies", x => new { x.ActorId, x.MovieId });
-                    table.ForeignKey(
-                        name: "FK_ActorsMovies_Actors_ActorId",
-                        column: x => x.ActorId,
-                        principalTable: "Actors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ActorsMovies_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MoviesGenres",
-                columns: table => new
-                {
-                    MovieId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    GenreId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoviesGenres", x => new { x.MovieId, x.GenreId });
-                    table.ForeignKey(
-                        name: "FK_MoviesGenres_Genres_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Genres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MoviesGenres_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -403,6 +398,22 @@ namespace MovieHouse.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "261ce8fc-693f-4818-af77-f2a920bf3b8f", "Thriller" },
+                    { "36ac357b-18ef-4fd2-83cc-c7be47422aa1", "Action" },
+                    { "4c0cc434-a39d-4c8d-a0ad-7ebf39e8d069", "Romance" },
+                    { "5598e6a3-555d-4b45-8b71-fee892d70c8c", "Fantasy" },
+                    { "76d9b9a6-9f19-4faa-8f3f-61601ad544b6", "Drama" },
+                    { "86a5b294-6326-46ff-970a-b49ca945df3c", "Horror" },
+                    { "b07e9e0e-8883-4f40-9e87-b2ac19fd5cd0", "Science Fiction" },
+                    { "f5039649-7040-42c3-8d4e-41f303808d47", "Comedy" },
+                    { "fc7a2aa4-98b8-42de-9cf3-ec915a6ddaf2", "Western" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Cities",
                 columns: new[] { "Id", "CountryId", "Name" },
                 values: new object[,]
@@ -488,11 +499,6 @@ namespace MovieHouse.Infrastructure.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Movies_DirectedById",
-                table: "Movies",
-                column: "DirectedById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MoviesGenres_GenreId",
                 table: "MoviesGenres",
                 column: "GenreId");
@@ -546,6 +552,9 @@ namespace MovieHouse.Infrastructure.Migrations
                 name: "UsersMoviesReviews");
 
             migrationBuilder.DropTable(
+                name: "Actors");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -556,9 +565,6 @@ namespace MovieHouse.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Movies");
-
-            migrationBuilder.DropTable(
-                name: "Actors");
 
             migrationBuilder.DropTable(
                 name: "Cities");

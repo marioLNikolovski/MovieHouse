@@ -6,17 +6,15 @@ namespace MovieHouse.Core.Models
 {
     public class UserEditViewModel
     {
-        private readonly IApplicationDbRepository repo;
 
-        public UserEditViewModel(ApplicationUser user, IApplicationDbRepository _repo)
+        public UserEditViewModel(ApplicationUser user)
         {
             user.Id = Id;
             user.FirstName = FirstName;
             user.LastName = LastName;
             user.CountryId = Country;
             user.CityId = City;
-            
-            
+             
         }
 
         public UserEditViewModel()

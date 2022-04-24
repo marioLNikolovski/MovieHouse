@@ -67,18 +67,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 form-it">
+                            
                                 <label asp-for="Country"></label>
                                 <<select id="CountryList" asp-for="Country" class="form-control" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
                                     <option value="">-- Select Country --</option>
                                 </select>
-                            </div>
-                            <div class="col-md-6 form-it">
+                        </div> 
+                        <div class="row">
                                 <label asp-for="City"></label>
                                 <select id="CityList" asp-for="City" class="form-control" aria-required="true">
                                     <option value="-1">-- Select City --</option>
                                 </select>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">

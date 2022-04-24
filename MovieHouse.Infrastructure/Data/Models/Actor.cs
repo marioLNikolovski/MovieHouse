@@ -40,12 +40,12 @@ namespace MovieHouse.Infrastructure.Data.Models
         public Country BirthCountry { get; set; }
 
         public ICollection<ActorMovies> ActedIn { get; set; }
-        public ICollection<Movie> DirectedMovies { get; set; }
+        
 
         public Actor()
         {
             ActedIn = new List<ActorMovies>();
-            DirectedMovies = new List<Movie>();
+           
         }
     }
 }

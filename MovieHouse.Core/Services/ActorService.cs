@@ -20,9 +20,9 @@ namespace MovieHouse.Core.Services
             if (String.IsNullOrWhiteSpace(lastName))
                 throw new ArgumentException("Last Name cannot be null or empty.");
 
-            var country = repo.All<Country>().FirstOrDefault(x => x.Name == countryId);
+            var country = repo.All<Country>().FirstOrDefault(x => x.Id == countryId);
 
-            var city = repo.All<City>().FirstOrDefault(x => x.Name == cityId);
+            var city = repo.All<City>().FirstOrDefault(x => x.Id == cityId);
 
             var actor = new Actor()
             {
@@ -34,7 +34,6 @@ namespace MovieHouse.Core.Services
                Photo = "dsadas",
                Age = age,
                
-
             };
 
             var actedInMovies = actedInIds.Select(movieId => new ActorMovies
