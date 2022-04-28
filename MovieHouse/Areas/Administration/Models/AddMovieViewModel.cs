@@ -6,6 +6,7 @@ namespace MovieHouse.Areas.Administration.Models
 {
     public class AddMovieViewModel
     {
+       
 
         [Required]
         public string Name { get; set; }
@@ -32,8 +33,8 @@ namespace MovieHouse.Areas.Administration.Models
         public ICollection<UserMoviesReviews> Reviews { get; set; }
         public ICollection<UserMoviesRating> Ratings { get; set; }
 
-        public string[] ActorsIds { get; set; }
-        public string[] GenresIds { get; set; }
+        public List<string> ActorsIds { get; set; }
+        public List<string> GenresIds { get; set; }
 
         public AddMovieViewModel()
         {
@@ -42,6 +43,8 @@ namespace MovieHouse.Areas.Administration.Models
             FavoritedBy = new List<UserMovies>();
             Reviews = new List<UserMoviesReviews>();
             Ratings = new List<UserMoviesRating>();
+            ActorsIds = new List<string>();
+            GenresIds = new List<string>();
         }
     }
 }

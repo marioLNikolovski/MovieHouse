@@ -1,0 +1,156 @@
+﻿@model EditMovieViewModel;
+
+
+<body>
+    <div class="hero user-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hero-ct">
+                        <ul class="breadcumb">
+                            <li class="active"><a href="/">Home</a></li>
+                            <li> <span class="ion-ios-arrow-right"></span>Profile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width">
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="user-information">
+                        <div class="user-img">
+                            <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
+                            <a href="#" class="redbtn">Change avatar</a>
+                        </div>
+                        <div class="user-fav">
+                            <p>Profile Details</p>
+                            <ul>
+                                <li class="active"><a asp-action="UserPage" asp-controller="Account">Profile</a></li>
+                                <li><a asp-action="UserFavoriteMoviesPage" asp-controller="Account">Favorite movies</a></li>
+                                <li><a asp-action="UserRatedMoviesPage" asp-controller="Account">Rated movies</a></li>
+                            </ul>
+                        </div>
+                        <div class="user-fav">
+                            <p>Others</p>
+                            <ul>
+                                <li><a asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Change password</a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Manage/Email">Change email</a></li>
+                                <li class="redbtn">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                                        <button type="submit" class="nav-link btn btn-link text-white">Log Out</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="form-style-1 user-pro" action="">
+                        <form asp-action="EditMovie" asp-controller="Admin" method="post">
+                            <h4>01. Movie details</h4>
+                            @*<input type="hidden" name="Id" value="@Model.Id"/>*@
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <label asp-for="MovieList"></label>
+                                <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.MovieList, "Value", "Text"))"></select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-it">
+                                    <label asp-for="Name"></label>
+                                    <input asp-for="Name" class="form-control" aria-required="true" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6 form-it">
+                                    <label asp-for="ReleaseDate"></label>
+                                    <input asp-for="ReleaseDate" class="form-control" aria-required="true" />
+                                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label asp-for="CoverPhoto"></label>
+                                <input asp-for="CoverPhoto" class="form-control" aria-required="true" />
+                                <span asp-validation-for="CoverPhoto" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <label asp-for="CountryId"></label>
+                                <<select id="CountryList" asp-for="CountryId" class="form-control" asp-items="@(new SelectList(Model.CountryList,"Id","Name"))">
+                                    <option value="">-- Select Country --</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="Actors"></label>
+                                        <select id="dropDownList-example" name="ActorsIds"
+                                                asp-items="@Model.Actors" multiple class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="Genres"></label>
+                                        <select id="dropDownList-example2" name="GenresIds"
+                                                asp-items="@Model.Genres" multiple class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input class="submit" type="submit" value="change">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer section-->
+    <!-- end of footer section-->
+
+    <script src="~/js/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+              $("#CountryList").change(function () {
+                $("#CityList").empty();
+                $.ajax({
+                    type: 'Get',
+                    url: '@Url.Action("LoadCity")',
+
+                    datatype: 'json',
+                    data: {id: $("#CountryList").val() },
+
+                    success: function(cities) {
+                        $("#CityList").append('<option value="' + -1 + '">' +
+                        "Select City" + '</option>');
+                        $.each(cities, function (i,city) {
+                            $("#CityList").append('<option value=' + city.value + '>' +
+                            city.text + '</option>');
+                        });
+                    },
+                });
+            })
+        });
+    </script>
+
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/multiselect/jquery.multi-select.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dropDownList-example').multiSelect();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#dropDownList-example2').multiSelect();
+        });
+    </script>
+    }
+
+</body>

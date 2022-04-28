@@ -1,7 +1,10 @@
-﻿using MovieHouse.Core.Contracts;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MovieHouse.Core.Contracts;
+using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
 using System.Globalization;
+
 
 namespace MovieHouse.Core.Services
 {
@@ -13,7 +16,7 @@ namespace MovieHouse.Core.Services
         {
             repo = _repo;
         }
-        public async Task AddActor(string firstName, string lastName, string birthDate, string countryId, string cityId, string photo, int age, string[] actedInIds)
+        public async Task AddActor(string firstName, string lastName, string birthDate, string countryId, string cityId, string photo, int age, List<string> actedInIds)
         {
             if (String.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentException("First Name name cannot be null or empty.");
@@ -48,6 +51,40 @@ namespace MovieHouse.Core.Services
             await repo.SaveChangesAsync();
 
            
+        }
+
+        public async Task<bool> UpdateActor(EditActorViewModel model)
+        {
+            bool result = false;
+            var actor = await repo.GetByIdAsync<Actor>(model.Id);
+            var data = repo.All<Movie>().ToList();
+
+            var country = repo.All<Country>().FirstOrDefault(x => x.Id == model.BirthCountryId);
+
+            var city = repo.All<City>().FirstOrDefault(x => x.Id == model.BirthCityId);
+            //var viewActorMovies = data.Select(movie => new SelectListItem { Text = movie.Name, Value = movie.Id }).ToList();
+            if (actor != null)
+            {
+                actor.FirstName = model.FirstName;
+                actor.LastName = model.LastName;
+                actor.BirthCountry = country;
+                actor.BirthCity = city;
+                actor.Age = model.Age;
+                actor.Photo = model.Photo;
+                actor.BirthDate = DateTime.ParseExact(model.BirthDate, "dd.mm.yyyy", CultureInfo.InvariantCulture);
+              
+                
+                result = true;
+            }
+
+            var actedInMovies = model.ActedInIds.Select(movieId => new ActorMovies
+            {
+                Actor = actor,
+                Movie = repo.All<Movie>().FirstOrDefault(x => x.Id == movieId),
+            });
+            await repo.AddRangeAsync<ActorMovies>(actedInMovies);
+            await repo.SaveChangesAsync();
+            return result;
         }
     }
 }

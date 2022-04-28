@@ -1,4 +1,5 @@
 ﻿using MovieHouse.Core.Contracts;
+using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
 using System.Globalization;
@@ -12,7 +13,7 @@ namespace MovieHouse.Core.Services
         {
             repo = _repo;
         }
-        public async Task AddMovie(string name, string releaseDate, string coverPhoto, string countryId, string directedById, string[] actorsIds, string[] genresIds)
+        public async Task AddMovie(string name, string releaseDate, string coverPhoto, string countryId, string directedById, List<string> actorsIds, List<string> genresIds)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name name cannot be null or empty.");
@@ -46,6 +47,46 @@ namespace MovieHouse.Core.Services
             await repo.AddRangeAsync<MoviesGenres>(moviesGenres);
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateMovie(EditMovieViewModel model)
+        {
+            bool result = false;
+            var movie = await repo.GetByIdAsync<Movie>(model.Id);
+            var data = repo.All<Actor>().ToList();
+
+            var country = repo.All<Country>().FirstOrDefault(x => x.Id == model.CountryId);
+
+            if (movie != null)
+            {
+                movie.Name = model.Name;
+                movie.DirectedBy = model.DirectedById;
+                movie.Country = country;
+                movie.CoverPhoto = model.CoverPhoto;
+                movie.ReleaseDate = DateTime.ParseExact(model.ReleaseDate, "dd.mm.yyyy", CultureInfo.InvariantCulture);
+
+
+                result = true;
+            }
+
+            var moviesActors = model.ActorsIds.Select(actorId => new ActorMovies
+            {
+                Actor = repo.All<Actor>().FirstOrDefault(x => x.Id == actorId),
+                Movie = movie
+            });
+
+            var moviesGenres = model.GenresIds.Select(genreId => new MoviesGenres
+            {
+                Movie = movie,
+                Genre = repo.All<Genre>().FirstOrDefault(x => x.Id == genreId),
+            });
+
+            await repo.AddRangeAsync<ActorMovies>(moviesActors);
+            await repo.AddRangeAsync<MoviesGenres>(moviesGenres);
+
+            await repo.SaveChangesAsync();
+
+            return result;
         }
     }
 }

@@ -1,22 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieHouse.Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
-namespace MovieHouse.Areas.Administration.Models
+
+namespace MovieHouse.Core.Models
 {
-    public class AddActorViewModel 
+    public class EditActorViewModel
     {
-
-        public AddActorViewModel()
+        public EditActorViewModel(Actor actor)
         {
-
+            actor.Id = Id;
+            actor.FirstName = FirstName;
+            actor.LastName = LastName;
+            actor.BirthCityId = BirthCityId;
+            actor.BirthCountryId = BirthCountryId;
+            actor.Photo = Photo;
+            actor.BirthDate = DateTime.ParseExact(BirthDate, "dd.mm.yyyy", CultureInfo.InvariantCulture);
             ActedInIds = new List<string>();
             ActedIn = new List<SelectListItem>();
         }
-       
+        public EditActorViewModel()
+        {
+             ActedIn = new List<SelectListItem> { };
+            ActorList = new List<SelectListItem>();
+        }
+        public string Id { get; set; }
 
-        
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -32,6 +42,7 @@ namespace MovieHouse.Areas.Administration.Models
         [Required]
         public int Age { get; set; }
 
+        [Display(Name = "Photo Url")]
         public string? Photo { get; set; }
 
         [Required]
@@ -49,7 +60,7 @@ namespace MovieHouse.Areas.Administration.Models
         public List<string> ActedInIds { get; set; }
 
         public IEnumerable<Country> CountryList { get; set; } = new List<Country>();
-
+        public List<SelectListItem> ActorList { get; set; }
 
     }
 }

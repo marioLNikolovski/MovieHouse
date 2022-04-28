@@ -124,6 +124,12 @@
                                     <li><a asp-action="UserFavoriteMoviesPage" asp-controller="Account">user favorite list</a></li>
                                     <li><a asp-action="UserPage" asp-controller="Account">user profile</a></li>
                                     <li class="it-last"><a asp-action="UserRatedMoviesPage" asp-controller="Account">user rate</a></li>
+                                    @if (User.IsInRole(UserConstants.Roles.Admin))
+                                    {
+                                        <li><a asp-area="Administration" asp-action="EditActorPage" asp-controller="Admin">Edit Actor</a></li>
+                                        <li><a asp-area="Administration" asp-action="EditMoviePage" asp-controller="Admin">Edit Movie</a></li>
+                                    }
+
                                 </ul>
                             </li>
                         }
