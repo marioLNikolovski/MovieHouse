@@ -9,7 +9,7 @@ namespace MovieHouse.Core.Models
         {
             Name= movie.Name;   
             ReleaseDate = movie.ReleaseDate.ToString();
-            CoverPhoto = "~/images/Movies/" + movie.CoverPhoto;
+            CoverPhoto = "~/images/" + movie.CoverPhoto;
             CountryId = movie.CountryId;
             DirectedBy = movie.DirectedBy;
         }

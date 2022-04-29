@@ -20,5 +20,7 @@ namespace MovieHouse.Core.Models
 
         public int TotalCount { get; set; }
         public List<MovieViewModel> Movies { get; set; }
+
+        public int MoviesCount { get; set; }
     }
 }

@@ -55,8 +55,9 @@ namespace MovieHouse.Core.Services
             bool lastPage = true;
 
             var movies = await repo.All<Movie>().Where(movie => movie.Name.Contains(keyword)).ToListAsync();
+            movies = movies.Skip((page - 1) * pageSize).ToList();
             var totalCount = movies.Count;
-            var resultMovies = movies.Skip((page - 1) * 10).Take(pageSize).ToList();
+            var resultMovies = movies.Take(pageSize).ToList();
 
 
             if (totalCount > pageSize)

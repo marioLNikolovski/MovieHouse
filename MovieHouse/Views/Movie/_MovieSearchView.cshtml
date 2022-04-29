@@ -2,12 +2,12 @@
 
 <div class="flex-wrap-movielist mv-grid-fw">
     
-    if(@Model.Movies.Count!=0)
+    @if(@Model.Movies.Count!=0)
     {
     @foreach (var movie in @Model.Movies)
     {
         <div class="movie-item-style-2 movie-item-style-1">
-        <img src="~/images/" alt="">
+        <img src="@Url.Content(movie.CoverPhoto)" />
         <div class="hvr-inner">
             <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
         </div>
@@ -34,22 +34,25 @@
     </select>
 
     <div class="pagination2">
-        <span>Page 1 of 2:</span>
+       @* <span>Page 1 of 2:</span>*@
 
 
 
         <div hidden="hidden">
             <input id="current-page" asp-for="Page" value="@Model.Page" />
             <input id="current-keyword" asp-for="Keyword" value="@Model.Keyword" />
+            <input id="current-moviesCount" asp-for="MoviesCount" value="@Model.MoviesCount" />
+            <input id="last-page" asp-for="LastPage" value="@Model.LastPage" />
         </div>
-        @if (Model.Movies.Count != 0)
+        <ul id="pagination-container"></ul>
+       @* @if (Model.Movies.Count != 0)
         {
 
             @if (Model.Page != 1)
             {
-                for (int i = @Model.Page; i >= 1; i--)
+                @for (int i = @Model.Page; i >= 1; i--)
                 {
-                    if (i == @Model.Page)
+                    @if (i == @Model.Page)
                     {
                         <a class="active" href="#">@i</a>
                     }
@@ -64,8 +67,13 @@
 
                 <a onclick="changePage(@Model.Page+1)">@Model.Page+1</a>
             }
+*@
 
-
-        }
+        
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+   
+}

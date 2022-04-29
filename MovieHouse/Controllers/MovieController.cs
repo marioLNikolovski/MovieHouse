@@ -35,6 +35,7 @@ namespace MovieHouse.Controllers
             }
             model.LastPage = searchResults.Item2;
             model.TotalCount = searchResults.Item3;
+            model.MoviesCount = model.Movies.Count;
             return PartialView("_MovieSearchView", model);
         }
     }

@@ -7,27 +7,82 @@
 function changePage(number) {
  
     let keyword = $('#current-keyword').val();
-    let criteria = $('#current-criteria').val();
-    let page = parseInt($('#current-page').val()) + number;
-    let pageSize = 10;
+    let criteria = $('#criteria').val();
+    let pageSize = 5;
     if (criteria === "Movie") {
-        $('#search-results').load('/bar/barsearchresults', { keyword: keyword, page: page,pageSize: pageSize });
+        $('#search-results').load('/movie/moviesearchresults', { keyword: keyword, page: number,pageSize: pageSize });
     }
     else {
-        $('#search-results').load('/bar/barsearchresults', { keyword: keyword,page: page,pageSize: pageSize });
+        $('#search-results').load('/bar/barsearchresults', { keyword: keyword,page: number,pageSize: pageSize });
     }
 
 }
 function searchEventHandler() {
-
+    
     let keyword = $('#keyword').val();
     let criteria = $('#criteria').val();
     let page = 1;
-    let pageSize = 10;
+    let pageSize = 5;
     if (criteria === "Movie") {
         $('#search-results').load('/movie/moviesearchresults', { keyword: keyword, page: page, pageSize: pageSize });
+       
     }
     else {
         $('#search-results').load('/actor/actorsearchresults', { keyword: keyword, page: page, pageSize: pageSize });
     }
 }
+
+function createPagination() {
+
+    let page = parseInt($('#current-page').val());
+    let container = $('#pagination-container');
+    let moviesCount = parseInt($('#current-moviesCount').val());
+    let lastPage = $('#last-page').val();
+    if (moviesCount != 0) {
+        if (page != 1) {
+            for (let i = page; i >= 1; i--) {
+                if (i === page) {
+                    $("#pagination-container").append('<li class="active"><a onclick="changePage(' + i + ')">'+ i + '</a></li>');
+                }
+                else {
+                    $("#pagination-container").append('<li onclick="changePage(' + i + ')"><a onclick="changePage(' + i + ')">' + i + '</a></li>');
+                }
+            }
+        }
+        else {
+            $("#pagination-container").append('<li class="active"><a onclick="changePage(' + 1 + ')">' + 1 + '</a></li>');
+        }
+
+        if (lastPage === "False") {
+            let nextPage = page + 1;
+            $("#pagination-container").append('<li onclick="changePage(' + nextPage + ')"><a>' + nextPage + '</a></li>');
+        }
+    }
+}
+const timeOut = function () {
+    setTimeout(createPagination, 1000);
+}
+
+
+//@if (Model.Movies.Count != 0) {
+
+//    @if (Model.Page != 1) {
+//        @for (int i = @Model.Page; i >= 1; i--)
+//        {
+//            @if (i == @Model.Page)
+//            {
+//                <a class="active" href="#">@i</a>
+//            }
+
+//            <a onclick="changePage(@i)">@i</a>
+//        }
+
+//    }
+
+//    @if (!Model.LastPage) {
+
+//        <a onclick="changePage(@Model.Page+1)">@Model.Page+1</a>
+//    }
+
+
+//}
