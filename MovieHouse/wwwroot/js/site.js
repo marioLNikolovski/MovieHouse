@@ -3,39 +3,31 @@
 
 // Write your JavaScript code.
 
-//const loginWindow = function(){
-//    var loginct = $( "#login-content" );
-//    var overlay = $(".overlay");
-//    loginct.parents(overlay).addClass("openform");
-//    $(document).on('click', function(e){
-//    var target = $(e.target);
-//    if ($(target).hasClass("overlay")){
-//            $(target).find(loginct).each( function(){
-//                $(this).removeClass("openform");
-//            });
-//            setTimeout( function(){
-//                $(target).removeClass("openform");
-//            }, 350);
-//        }	
-//    });
-//};
-//window.onload = loginWindow;
 
-//const signupWindow = function () {
-//    var loginct = $("#login-content");
-//    var overlay = $(".overlay");
-//    loginct.parents(overlay).addClass("openform");
-//    $(document).on('click', function (e) {
-//        var target = $(e.target);
-//        if ($(target).hasClass("overlay")) {
-//            $(target).find(loginct).each(function () {
-//                $(this).removeClass("openform");
-//            });
-//            setTimeout(function () {
-//                $(target).removeClass("openform");
-//            }, 350);
-//        }
-//    });
-//};
-//window.onload = signupWindow;
+function changePage(number) {
+ 
+    let keyword = $('#current-keyword').val();
+    let criteria = $('#current-criteria').val();
+    let page = parseInt($('#current-page').val()) + number;
+    let pageSize = 10;
+    if (criteria === "Movie") {
+        $('#search-results').load('/bar/barsearchresults', { keyword: keyword, page: page,pageSize: pageSize });
+    }
+    else {
+        $('#search-results').load('/bar/barsearchresults', { keyword: keyword,page: page,pageSize: pageSize });
+    }
 
+}
+function searchEventHandler() {
+
+    let keyword = $('#keyword').val();
+    let criteria = $('#criteria').val();
+    let page = 1;
+    let pageSize = 10;
+    if (criteria === "Movie") {
+        $('#search-results').load('/movie/moviesearchresults', { keyword: keyword, page: page, pageSize: pageSize });
+    }
+    else {
+        $('#search-results').load('/actor/actorsearchresults', { keyword: keyword, page: page, pageSize: pageSize });
+    }
+}

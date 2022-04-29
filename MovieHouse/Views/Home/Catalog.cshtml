@@ -1,0 +1,61 @@
+﻿<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+<link rel="stylesheet" href="~/css/plugins.css">
+<link rel="stylesheet" href="~/css/style.css">
+<link rel="stylesheet" href="~/css/site.css">
+
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>Movie Listing - Grid Fullwidth</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single">
+    <div class="container">
+        <div class="top-search">
+            <select id="criteria">
+                <option value="Movie">Movie</option>
+                <option value="Actor">Actor</option>
+            </select>
+            <input id="keyword" type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="topbar-filter fw">
+                    <p>Found <span>1,608 movies</span> in total</p>
+                    <label>Sort by:</label>
+                    <select>
+                        <option value="popularity">Popularity Descending</option>
+                        <option value="popularity">Popularity Ascending</option>
+                        <option value="rating">Rating Descending</option>
+                        <option value="rating">Rating Ascending</option>
+                        <option value="date">Release date Descending</option>
+                        <option value="date">Release date Ascending</option>
+                    </select>
+                    <a href="movielist.html" class="list"><i class="ion-ios-list-outline "></i></a>
+                    <a href="moviegridfw.html" class="grid"><i class="ion-grid active"></i></a>
+                </div>
+                <div id="search-results">
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    <script>
+        searchEventHandler();
+    </script>
+}

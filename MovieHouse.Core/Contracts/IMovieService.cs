@@ -1,4 +1,5 @@
 ﻿using MovieHouse.Core.Models;
+using MovieHouse.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace MovieHouse.Core.Contracts
     {
         Task AddMovie(string name, string releaseDate, string coverPhoto, string countryId, string directedById, List<string> actorsIds, List<string> genresIds);
         Task<bool> UpdateMovie(EditMovieViewModel model);
+        Task<Tuple<List<Movie>, bool, int>> FindMoviesForCatalogAsync(string keyword,int page,int pageSize);
     }
 }

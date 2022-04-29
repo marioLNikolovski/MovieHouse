@@ -1,0 +1,71 @@
+﻿@model MovieSearchViewModel
+
+<div class="flex-wrap-movielist mv-grid-fw">
+    
+    if(@Model.Movies.Count!=0)
+    {
+    @foreach (var movie in @Model.Movies)
+    {
+        <div class="movie-item-style-2 movie-item-style-1">
+        <img src="~/images/" alt="">
+        <div class="hvr-inner">
+            <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+        </div>
+        <div class="mv-item-infor">
+            <h6><a href="#">@movie.Name</a></h6>
+            <p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
+        </div>
+    </div>
+    }
+
+    }
+    else
+    {
+       <span>There are no movies found.</span>
+    }
+
+
+</div>
+<div class="topbar-filter">
+    <label>Movies per page:</label>
+    <select>
+        <option value="range">20 Movies</option>
+        <option value="saab">10 Movies</option>
+    </select>
+
+    <div class="pagination2">
+        <span>Page 1 of 2:</span>
+
+
+
+        <div hidden="hidden">
+            <input id="current-page" asp-for="Page" value="@Model.Page" />
+            <input id="current-keyword" asp-for="Keyword" value="@Model.Keyword" />
+        </div>
+        @if (Model.Movies.Count != 0)
+        {
+
+            @if (Model.Page != 1)
+            {
+                for (int i = @Model.Page; i >= 1; i--)
+                {
+                    if (i == @Model.Page)
+                    {
+                        <a class="active" href="#">@i</a>
+                    }
+
+                    <a onclick="changePage(@i)">@i</a>
+                }
+
+            }
+
+            @if (!Model.LastPage)
+            {
+
+                <a onclick="changePage(@Model.Page+1)">@Model.Page+1</a>
+            }
+
+
+        }
+    </div>
+</div>

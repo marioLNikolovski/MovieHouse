@@ -1,4 +1,5 @@
-﻿using MovieHouse.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieHouse.Core.Contracts;
 using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Models;
 using MovieHouse.Infrastructure.Data.Repositories;
@@ -47,6 +48,23 @@ namespace MovieHouse.Core.Services
             await repo.AddRangeAsync<MoviesGenres>(moviesGenres);
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<Tuple<List<Movie>, bool, int>> FindMoviesForCatalogAsync(string keyword,int page, int pageSize)
+        {
+            bool lastPage = true;
+
+            var movies = await repo.All<Movie>().Where(movie => movie.Name.Contains(keyword)).ToListAsync();
+            var totalCount = movies.Count;
+            var resultMovies = movies.Skip((page - 1) * 10).Take(pageSize).ToList();
+
+
+            if (totalCount > pageSize)
+            {
+                lastPage = false;
+            }
+
+            return new Tuple<List<Movie>, bool, int>(resultMovies, lastPage, totalCount);
         }
 
         public async Task<bool> UpdateMovie(EditMovieViewModel model)
