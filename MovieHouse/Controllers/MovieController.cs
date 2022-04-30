@@ -38,5 +38,13 @@ namespace MovieHouse.Controllers
             model.MoviesCount = model.Movies.Count;
             return PartialView("_MovieSearchView", model);
         }
+
+        
+        public async Task<IActionResult> MovieDetails(string movieId)
+        {
+            var movie = await movieService.FindMovieByIdAsync(movieId);
+            var vm = new MovieViewModel(movie);
+            return View("MovieDetails", vm);
+        }
     }
 }

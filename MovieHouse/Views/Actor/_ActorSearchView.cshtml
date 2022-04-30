@@ -9,7 +9,9 @@
         <div class="movie-item-style-2 movie-item-style-1">
         <img src="@Url.Content(actor.Photo)" />
         <div class="hvr-inner">
-            <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+            <form>
+            <button class="registerButton" asp-action="ActorDetails" asp-controller="Actor" value="@actor.Id" name="actorId"> Read more <i class="ion-android-arrow-dropright"></i></button>
+            </form>
         </div>
         <div class="mv-item-infor">
             <h6><a href="#">@actor.FirstName @actor.LastName</a></h6>

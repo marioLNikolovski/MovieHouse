@@ -38,5 +38,11 @@ namespace MovieHouse.Controllers
             model.ActorsCount = model.Actors.Count;
             return PartialView("_ActorSearchView", model);
         }
+        public async Task<IActionResult> ActorDetails(string actorId)
+        {
+            var actor = await actorService.FindActorByIdAsync(actorId);
+            var vm = new ActorViewModel(actor);
+            return View("ActorDetails", vm);
+        }
     }
 }

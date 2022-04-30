@@ -9,7 +9,9 @@
         <div class="movie-item-style-2 movie-item-style-1">
         <img src="@Url.Content(movie.CoverPhoto)" />
         <div class="hvr-inner">
-            <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+            <form>
+            <button class="registerButton" asp-action="MovieDetails" asp-controller="Movie" value="@movie.Id" name="movieId"> Read more <i class="ion-android-arrow-dropright"></i></button>
+            </form>
         </div>
         <div class="mv-item-infor">
             <h6><a href="#">@movie.Name</a></h6>
@@ -34,9 +36,6 @@
     </select>
 
     <div class="pagination2">
-       @* <span>Page 1 of 2:</span>*@
-
-
 
         <div hidden="hidden">
             <input id="current-page" asp-for="Page" value="@Model.Page" />
@@ -45,31 +44,6 @@
             <input id="last-page" asp-for="LastPage" value="@Model.LastPage" />
         </div>
         <ul id="pagination-container"></ul>
-       @* @if (Model.Movies.Count != 0)
-        {
-
-            @if (Model.Page != 1)
-            {
-                @for (int i = @Model.Page; i >= 1; i--)
-                {
-                    @if (i == @Model.Page)
-                    {
-                        <a class="active" href="#">@i</a>
-                    }
-
-                    <a onclick="changePage(@i)">@i</a>
-                }
-
-            }
-
-            @if (!Model.LastPage)
-            {
-
-                <a onclick="changePage(@Model.Page+1)">@Model.Page+1</a>
-            }
-*@
-
-        
     </div>
 </div>
 

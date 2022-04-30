@@ -12,11 +12,16 @@ namespace MovieHouse.Core.Models
             CoverPhoto = "~/images/" + movie.CoverPhoto;
             CountryId = movie.CountryId;
             DirectedBy = movie.DirectedBy;
+            Id = movie.Id;
+            
         }
         public MovieViewModel()
         {
 
         }
+
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         
@@ -30,6 +35,8 @@ namespace MovieHouse.Core.Models
 
       
         public string? DirectedBy { get; set; }
+
+        public ICollection<ActorMovies> Actors { get; set; }
 
 
     }

@@ -54,6 +54,20 @@ namespace MovieHouse.Core.Services
            
         }
 
+        public async Task<Actor> FindActorByIdAsync(string id)
+        {
+            var actor = await repo.All<Actor>()
+                         .Where(p => p.Id == id)
+                         .Include(p => p.BirthCountry)
+                         .FirstOrDefaultAsync();
+
+            if (actor == null)
+            {
+                throw new ArgumentNullException("Actor with given Id does not exist.");
+            }
+            return actor;
+        }
+
         public async Task<Tuple<List<Actor>, bool, int>> FindActorForCatalogAsync(string keyword, int page, int pageSize)
         {
             bool lastPage = true;

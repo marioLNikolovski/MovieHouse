@@ -50,6 +50,20 @@ namespace MovieHouse.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<Movie> FindMovieByIdAsync(string id)
+        {
+            var movie = await repo.All<Movie>()
+                         .Where(p => p.Id == id)
+                         .Include(p=> p.Country)
+                         .FirstOrDefaultAsync();
+
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie with given Id does not exist.");
+            }
+            return movie;
+        }
+
         public async Task<Tuple<List<Movie>, bool, int>> FindMoviesForCatalogAsync(string keyword,int page, int pageSize)
         {
             bool lastPage = true;

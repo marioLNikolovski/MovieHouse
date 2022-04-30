@@ -13,11 +13,13 @@ namespace MovieHouse.Core.Models
             Photo = "~/images/" + actor.Photo;
             BirthCountryId = actor.BirthCountryId;
             BirthCityId = actor.BirthCityId;
+            Id = actor.Id;
         }
         public ActorViewModel()
         {
 
         }
+        public string Id { get; set; }
         public string FirstName { get; set; }
 
        

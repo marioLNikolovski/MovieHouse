@@ -28,9 +28,13 @@ body {
 .registerButton {
     font-family: 'Dosis', sans-serif;
     font-size: 14px;
-    color: #abb7c4;
+    color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
+    border: none;
+    background-color: #dd003f;
+    height: 42px;
+    width: 100%;
     cursor: pointer;
 }
 
