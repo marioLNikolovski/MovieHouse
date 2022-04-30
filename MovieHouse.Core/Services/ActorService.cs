@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MovieHouse.Core.Contracts;
 using MovieHouse.Core.Models;
 using MovieHouse.Infrastructure.Data.Models;
@@ -51,6 +52,23 @@ namespace MovieHouse.Core.Services
             await repo.SaveChangesAsync();
 
            
+        }
+
+        public async Task<Tuple<List<Actor>, bool, int>> FindActorForCatalogAsync(string keyword, int page, int pageSize)
+        {
+            bool lastPage = true;
+
+            var actors = await repo.All<Actor>().Where(actor => actor.FirstName.Contains(keyword)).ToListAsync();
+            actors = actors.Skip((page - 1) * pageSize).ToList();
+            var totalCount = actors.Count;
+            var resultActors = actors.Take(pageSize).ToList();
+
+            if (totalCount > pageSize)
+            {
+                lastPage = false;
+            }
+
+            return new Tuple<List<Actor>, bool, int>(resultActors, lastPage, totalCount);
         }
 
         public async Task<bool> UpdateActor(EditActorViewModel model)

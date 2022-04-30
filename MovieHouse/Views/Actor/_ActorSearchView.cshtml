@@ -1,0 +1,51 @@
+﻿@model ActorSearchViewModel
+
+<div class="flex-wrap-movielist mv-grid-fw">
+    
+    @if(@Model.Actors.Count!=0)
+    {
+    @foreach (var actor in @Model.Actors)
+    {
+        <div class="movie-item-style-2 movie-item-style-1">
+        <img src="@Url.Content(actor.Photo)" />
+        <div class="hvr-inner">
+            <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+        </div>
+        <div class="mv-item-infor">
+            <h6><a href="#">@actor.FirstName @actor.LastName</a></h6>
+        </div>
+    </div>
+    }
+
+    }
+    else
+    {
+       <span>There are no actors found.</span>
+    }
+
+
+</div>
+<div class="topbar-filter">
+    <label>Actors per page:</label>
+    <select>
+        <option value="range">20 Movies</option>
+        <option value="saab">10 Movies</option>
+    </select>
+
+    <div class="pagination2">
+      
+        <div hidden="hidden">
+            <input id="current-page" asp-for="Page" value="@Model.Page" />
+            <input id="current-keyword" asp-for="Keyword" value="@Model.Keyword" />
+            <input id="current-moviesCount" asp-for="ActorsCount" value="@Model.ActorsCount" />
+            <input id="last-page" asp-for="LastPage" value="@Model.LastPage" />
+        </div>
+        <ul id="pagination-container"></ul>
+       
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+   
+}

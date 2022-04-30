@@ -13,7 +13,7 @@ function changePage(number) {
         $('#search-results').load('/movie/moviesearchresults', { keyword: keyword, page: number,pageSize: pageSize });
     }
     else {
-        $('#search-results').load('/bar/barsearchresults', { keyword: keyword,page: number,pageSize: pageSize });
+        $('#search-results').load('/actor/actorsearchresults', { keyword: keyword,page: number,pageSize: pageSize });
     }
 
 }
@@ -64,25 +64,4 @@ const timeOut = function () {
 }
 
 
-//@if (Model.Movies.Count != 0) {
 
-//    @if (Model.Page != 1) {
-//        @for (int i = @Model.Page; i >= 1; i--)
-//        {
-//            @if (i == @Model.Page)
-//            {
-//                <a class="active" href="#">@i</a>
-//            }
-
-//            <a onclick="changePage(@i)">@i</a>
-//        }
-
-//    }
-
-//    @if (!Model.LastPage) {
-
-//        <a onclick="changePage(@Model.Page+1)">@Model.Page+1</a>
-//    }
-
-
-//}
