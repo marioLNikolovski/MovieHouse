@@ -36,7 +36,10 @@
 					</div>
 					<div class="social-btn">
 						<button id="addToFavorites" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</button>
+						
+                        <button class="parent-btn-" onclick="unFavoriteThisBar()" id="unfavorite-button">Unfavorite</button>
 					</div>
+					
 					<div class="movie-rate">
 						<div class="rate">
 							<i class="ion-android-star"></i>
@@ -574,11 +577,12 @@
 	function addFavorite() {
 		let movieId = $("#movieId").val();
 		$.ajax({
-            url: 'Account/FavoriteMovie',
+            url: '/Account/FavoriteMovie',
 			type: "POST",
 			data: {movieId : movieId},
 			success: function() {
-                button.toggle()
+                 $("#addToFavorites").toggle();
+                 $("#unfavorite-button").toggle();
 			}
 		})
 	}
