@@ -148,9 +148,9 @@ namespace MovieHouse.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                
-                var country = repo.All<Country>().Where(x => x.Id == Input.Country).First();
+                var country = repo.All<Country>().FirstOrDefault(x => x.Id == Input.Country);
 
-                var city = repo.All<City>().Where(x => x.Id == Input.City).First();
+                var city = repo.All<City>().FirstOrDefault(x => x.Id == Input.City);
              
 
                 var user = new ApplicationUser()

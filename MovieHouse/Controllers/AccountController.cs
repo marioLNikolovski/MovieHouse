@@ -84,6 +84,13 @@ namespace MovieHouse.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> FavoriteMovie(string movieId)
+        {
+            var userId = this.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            await accountService.FavoriteMovieAsync(userId, movieId);
+            return Ok();
+        }
+
       
 
 

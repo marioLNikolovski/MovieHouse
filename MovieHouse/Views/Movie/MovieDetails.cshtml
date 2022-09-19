@@ -31,8 +31,11 @@
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="movie-single-ct main-content">
 					<h1 class="bd-hd">@Model.Name</h1>
+					<div hidden>
+						<input asp-for="@Model.Id" value="@Model.Id" id="movieId"/>
+					</div>
 					<div class="social-btn">
-						<a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						<button id="addToFavorites" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</button>
 					</div>
 					<div class="movie-rate">
 						<div class="rate">
@@ -66,10 +69,7 @@
 						            <div class="row">
 						            	<div class="col-md-8 col-sm-12 col-xs-12">
 						            		<p>Tony Stark creates the Ultron Program to protect the world, but when the peacekeeping program becomes hostile, The Avengers go into action to try and defeat a virtually impossible enemy together. Earth's mightiest heroes must come together once again to protect the world from global extinction.</p>
-						            		<div class="title-hd-sm">
-												<h4>Videos & Photos</h4>
-												<a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
-											</div>
+						            		
 											<div class="mvsingle-item ov-item">
 												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img src="images/uploads/image1.jpg" alt=""></a>
 												<a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image21.jpg" ><img src="images/uploads/image2.jpg" alt=""></a>
@@ -561,3 +561,25 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+
+
+    let button = document.getElementById('addToFavorites');
+	
+
+	button.addEventListener('click', addFavorite);
+
+	function addFavorite() {
+		let movieId = $("#movieId").val();
+		$.ajax({
+            url: 'Account/FavoriteMovie',
+			type: "POST",
+			data: {movieId : movieId},
+			success: function() {
+                button.toggle()
+			}
+		})
+	}
+</script>

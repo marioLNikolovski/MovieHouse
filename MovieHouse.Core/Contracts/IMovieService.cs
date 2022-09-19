@@ -14,5 +14,6 @@ namespace MovieHouse.Core.Contracts
         Task<bool> UpdateMovie(EditMovieViewModel model);
         Task<Tuple<List<Movie>, bool, int>> FindMoviesForCatalogAsync(string keyword,int page,int pageSize);
         Task<Movie> FindMovieByIdAsync(string id);
+        
     }
 }
